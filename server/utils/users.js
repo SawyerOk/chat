@@ -14,14 +14,6 @@ class Users {
         var user = this.users.filter((user) => user.id === id )[0];
         return user;
     }
-    
-    userExist(name){
-        var user = this.users.filter((user) => user.name === name)[0];
-        if(user){
-            return true;
-        }
-       return false;
-    }
 
     removeUser(id){
         var user = this.getUser(id);

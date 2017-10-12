@@ -15,11 +15,13 @@ const { Users } = require("./utils/users");
 
 const users = new Users();
 
+app.use(express.static(publicPath));
+
 io.on("connection", socket => {
   
 
   socket.on("createMessage", (message, callback) => {
-    var user = users.getUser(socket.id);
+    const user = users.getUser(socket.id);
     if (user && isRealString(message.text)) {
       io.emit("newMessage", generateMessage(user.name, message.text));
     }
@@ -49,8 +51,9 @@ io.on("connection", socket => {
 
   socket.on("disconnect", () => {
     const user = users.getUser(socket.id);
-    console.log(`${user.name} disconneted`);
+    
     if (user) {
+      console.log(`${user.name} disconneted`);
       socket.broadcast.emit(
         "newMessage",
         generateMessage("Admin", `${user.name} has left`)
@@ -59,7 +62,7 @@ io.on("connection", socket => {
   });
 });
 
-app.use(express.static(publicPath));
+
 
 server.listen(3000, () => {
   console.log(`Server is up on 3000`);
