@@ -35,8 +35,8 @@ $(function() {
   });
 
   socket.on("connect", function() {
-    const params = $.deparam(window.location.search);
-    const name = params.name.toLowerCase();
+    var params = $.deparam(window.location.search);
+    var name = params.name.toLowerCase();
     console.log("name=>", name);
     socket.emit("join", name, function(err) {
       if (err) {
