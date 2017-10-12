@@ -22,7 +22,7 @@ $(function() {
   $("#message-form").on("submit", function(e) {
     e.preventDefault();
     console.log("push");
-    var messsage = jQuery("[name=message]");
+    var messsage = $("[name=message]");
     socket.emit(
       "createMessage",
       {
@@ -35,7 +35,7 @@ $(function() {
   });
 
   socket.on("connect", function() {
-    const params = jQuery.deparam(window.location.search);
+    const params = $.deparam(window.location.search);
     const name = params.name.toLowerCase();
     console.log("name=>", name);
     socket.emit("join", name, function(err) {
@@ -49,15 +49,14 @@ $(function() {
   });
 
   socket.on("newMessage", function(message) {
-    var template = jQuery("#message-template").html();
+    var template = $("#message-template").html();
     var time = moment(message.createdAt).format("H:MM:ss");
     var html = Mustache.render(template, {
       text: message.text,
       from: message.from,
       createdAt: time
     });
-    console.log("resiced from server");
-    jQuery("#messages").append(html);
+    $("#messages").append(html);
     scrollToBottom();
   });
 });
