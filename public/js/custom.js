@@ -37,14 +37,12 @@ $(function() {
   socket.on("connect", function() {
     var params = $.deparam(window.location.search);
     var name = params.name.toLowerCase();
-    console.log("name=>", name);
+    // Проверить повторы имени
     socket.emit("join", name, function(err) {
       if (err) {
         alert(err);
         window.location.href = "/";
-      } else {
-        console.log("No error");
-      }
+      } 
     });
   });
 
