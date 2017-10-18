@@ -23,6 +23,13 @@ class Users {
         return user;
     }
     
+    userExist(name) {
+    var user = this.users.filter(user => user.name === name)[0];
+    if (user) {
+      return true;
+    }
+    return false;
+  }
 }
 
 
